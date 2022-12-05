@@ -12,8 +12,11 @@ export const BoxCenter = styled.div`
 
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
-    border: 10px;
-    border-color: ${props => props.theme.color.info};
+    border: 1px solid;
+    border-color: ${props => props.theme.color.black};
+    background-color: ${props => props.theme.color.primary};
+    padding:15px;
+    border-radius:5px;
 `
 
 export const Row = styled.div`
@@ -26,6 +29,7 @@ export const Row = styled.div`
 
     div > Button {
         background-color: ${props => props.theme.color.success};
+        color: ${props => props.theme.color.white};
         width:100%;
         margin : 2px;        
     }

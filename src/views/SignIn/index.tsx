@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../components/Button";
+import ButtonMUI from "../../components/Button-MUI";
 import { useAuth } from "../../components/hooks/auth";
 import Input from "../../components/Input";
 import { BoxCenter, Col, Container, Row } from "./styles";
@@ -25,10 +26,10 @@ const SignIn: React.FC = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <Button type="button" onClick={() => signIn(email, password)}> Logar</Button>
+                        <ButtonMUI onClick={() => signIn(email, password)}> Logar</ButtonMUI>                        
                     </Col>
                     <Col>
-                        <Button type="button"> Esqueci Senha</Button>
+                    <ButtonMUI > Esqueci a senha</ButtonMUI>                        
                     </Col>
                 </Row>
             </BoxCenter>

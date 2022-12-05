@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
 
-export const Container = styled.button`
+export const Container = styled(Button)`
     width: 100%;
 
     margin: 7px 0;

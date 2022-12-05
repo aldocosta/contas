@@ -24,5 +24,9 @@ export const MenuItemLink = styled(Link)`
     &:hover {
         opacity: .7;
     }
+    
+    ::before{
+        content: ' '
+    }
 `;
 

@@ -4,14 +4,14 @@ import Render from "../Render";
 import { Container, MenuItemLink } from "./styles";
 
 const Aside: React.FC = () => {
-    const { logged, signOut } = useAuth();
+    const { logged, signOut, setActualPageName } = useAuth();
     return (
         <Container>
 
             <Render rendered={logged}>
-                <MenuItemLink to='/'>Home</MenuItemLink>
-                <MenuItemLink to='/about'>About</MenuItemLink>
-                <MenuItemLink to='/' onClick={(e) => { e.preventDefault(); signOut(); }}>Logout</MenuItemLink>
+                <MenuItemLink to='/' onClick={() => { setActualPageName('Merchant Register')}} >Merchant Register</MenuItemLink>
+                <MenuItemLink to='/about' onClick={() => { setActualPageName('About Page') }}>Client Register</MenuItemLink>
+                <MenuItemLink to='/' onClick={(e) => {  signOut(); }}>Logout</MenuItemLink>
             </Render>
 
         </Container>
