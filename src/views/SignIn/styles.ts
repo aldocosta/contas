@@ -38,13 +38,13 @@ export const Row = styled.div`
         margin: 1px;
     }
     
-    margin:3px;
+    margin:px;
 
 `
 
 export const Col = styled.div`
     float: left;
-    width: 49%;
+    width: 49%;    
     ::after{
         content: "";
         display: table;

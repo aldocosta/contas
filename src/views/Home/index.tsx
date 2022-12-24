@@ -1,13 +1,22 @@
-import { Container } from "./styles";
+import { Col, Container, Row } from "./styles";
 import * as React from 'react';
-// import MenuMUI from "../../components/MenuMUI";
+import dayjs, { Dayjs } from 'dayjs';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 
 
 const Home: React.FC = () => {
 
-    // const pages = ['Register', 'Pricing', 'Blog'];
-    // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+    const [age, setAge] = React.useState('');
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setAge(event.target.value as string);
+    };
 
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'ID', width: 70 },
@@ -42,24 +51,60 @@ const Home: React.FC = () => {
         { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
     ];
 
+    const mounths = [{ 'display': 'Janeiro', 'value': '1' }, { 'display': 'Fevereiro', 'value': '2' }]
+    const years = [{ 'display': '2021', 'value': '2021' }, { 'display': '2022', 'value': '2022' }]
 
 
-    return (
+
+    return(
         <Container>
-
-            <div style={{ height: 400, width: '100%' }}>
+            <Row>
+                <Col>
+                    <FormControl fullWidth>
+                        <InputLabel id="slm">Mês</InputLabel>
+                        <Select
+                            labelId="slm"
+                            id="dslm"
+                            value={age}
+                            label="Mês"
+                            onChange={handleChange}
+                        >
+                            {
+                                mounths.map((m) => (<MenuItem key={m.value} value={m.value}>{ m.display}</MenuItem>))
+                            }
+                            
+                        </Select>
+                    </FormControl>
+                </Col>
+                <Col>
+                    <FormControl fullWidth>
+                        <InputLabel id="sl">Ano</InputLabel>
+                        <Select
+                            labelId="sl"
+                            id="dsl"
+                            value={age}
+                            label="Ano"
+                            onChange={handleChange}
+                        >
+                            {
+                                years.map((m) => (<MenuItem key={m.value} value={m.value}>{ m.display}</MenuItem>))
+                            }
+                        </Select>
+                    </FormControl>
+                </Col>
+            </Row>
+            <div style={{ clear: 'both', height: 400, width: '100%', padding: '15px 0 0 0' }}>
                 <DataGrid
                     rows={rows}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
-                    checkboxSelection 
+                    checkboxSelection
                 />
             </div>
-            {/* <MenuMUI pages={pages} settings={settings}></MenuMUI> */}
 
 
-        </Container>
+        </Container >
     )
 }
 

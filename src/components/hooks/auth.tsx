@@ -1,5 +1,7 @@
 import React, { createContext, useState, useContext } from 'react';
 import { AuthConstants } from './constants/auth.constants';
+import LoginService from './services/login.service';
+import StorageService from './services/storage.service';
 
 interface IAuthContext {
     logged: boolean;
@@ -24,12 +26,14 @@ const AuthProvider: React.FC<any> = ({ children }) => {
     });
 
 
-    const signIn = (email: string, password: string) => {
-        if (email === 'rodrigo@email.com' && password === '123') {
-            localStorage.setItem(AuthConstants.MINHACARTEIRALOGGED, 'true');
+    const signIn = async (email: string, password: string) => {        
+        const logg = await LoginService.login(email, password)
+
+        if (logg.statusCode == undefined) {
+            StorageService.saveStorage(AuthConstants.MINHACARTEIRALOGGED, 'true');            
             setLogged(true);
             setuserName(email)
-            setPageName('Dealer Register')
+            setPageName('Contas do Ano')
         } else {
             alert('Senha ou usuário inválidos!');
         }
