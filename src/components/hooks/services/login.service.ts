@@ -1,13 +1,22 @@
+import { BaseUriconstants } from "../../../config/constants/baseuri.constants";
+import HttpService from "../../../config/http/http.service";
+
+interface AcessToken {
+    acess_token: string,
+    statusCode: number
+}
+
 const login = async (username: string, password: string) => {
-    const response = await fetch('http://localhost:3000/auth/login',
+
+    const uri = `${BaseUriconstants.BASEURI}/auth/login`
+
+    return HttpService.post<AcessToken>(
+        uri,
+        JSON.stringify({ username, password }),
         {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-        })
-    return  response.json();
+            'Content-Type': 'application/json'
+        }
+    )
 }
 
 const LoginService = {

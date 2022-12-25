@@ -7,7 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-
+import Grido from "../../components/Grido";
 
 
 const Home: React.FC = () => {
@@ -19,36 +19,42 @@ const Home: React.FC = () => {
     };
 
     const columns: GridColDef[] = [
-        { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'firstName', headerName: 'First name', width: 130 },
-        { field: 'lastName', headerName: 'Last name', width: 130 },
+        { field: 'id', headerName: 'ID', width: 70 ,headerClassName:'' },
+        { field: 'contaDescricao', headerName: 'Desc. Conta', width: 165 },
+        { field: 'contaValor', headerName: 'Valor', width: 130 },
         {
-            field: 'age',
-            headerName: 'Age',
-            type: 'number',
-            width: 90,
+            field: 'contaVencimento',
+            headerName: 'Vencimento',
+            width: 175, type : 'Date'
         },
         {
-            field: 'fullName',
-            headerName: 'Full name',
-            description: 'This column has a value getter and is not sortable.',
-            sortable: false,
-            width: 160,
-            valueGetter: (params: GridValueGetterParams) =>
-                `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-        },
+            field: 'contaDiasVencer',
+            headerName: 'Dias a Vencer',
+            width: 175, type: 'number'
+        }    
     ];
 
     const rows = [
-        { id: 1, lastName: 'Caruso', firstName: 'Daniel', age: 35 },
-        { id: 2, lastName: 'Comeric', firstName: 'Comeric', age: 42 },
-        { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-        { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-        { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-        { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-        { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-        { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-        { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+        {
+            "id": "1"
+            ,
+            "contaDescricao": "Luz"
+            ,
+            "contaVencimento":"10/01/2023",
+            "contaValor": "150"
+            ,
+            "contaDiasVencer": "12"
+        },
+        {
+            "id":"2"
+            ,  
+            "contaDescricao":"Internet"
+            ,  
+            "contaVencimento":"12/01/2023",
+            "contaValor":"250"
+            ,  
+            "contaDiasVencer":"18"
+            }
     ];
 
     const mounths = [{ 'display': 'Janeiro', 'value': '1' }, { 'display': 'Fevereiro', 'value': '2' }]
@@ -56,7 +62,7 @@ const Home: React.FC = () => {
 
 
 
-    return(
+    return (
         <Container>
             <Row>
                 <Col>
@@ -70,9 +76,9 @@ const Home: React.FC = () => {
                             onChange={handleChange}
                         >
                             {
-                                mounths.map((m) => (<MenuItem key={m.value} value={m.value}>{ m.display}</MenuItem>))
+                                mounths.map((m) => (<MenuItem key={m.value} value={m.value}>{m.display}</MenuItem>))
                             }
-                            
+
                         </Select>
                     </FormControl>
                 </Col>
@@ -87,22 +93,17 @@ const Home: React.FC = () => {
                             onChange={handleChange}
                         >
                             {
-                                years.map((m) => (<MenuItem key={m.value} value={m.value}>{ m.display}</MenuItem>))
+                                years.map((m) => (<MenuItem key={m.value} value={m.value}>{m.display}</MenuItem>))
                             }
                         </Select>
                     </FormControl>
                 </Col>
             </Row>
-            <div style={{ clear: 'both', height: 400, width: '100%', padding: '15px 0 0 0' }}>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection
-                />
-            </div>
-
+            <Grido
+                _rows={rows}
+                _columns={columns}
+            >
+            </Grido>
 
         </Container >
     )
