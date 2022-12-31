@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react";
 import Grido from "../../components/Grido";
 import { BoxCenter, Col, Container, Row } from "./styles";
 import SaveIcon from '@mui/icons-material/Save';
-import CancelIcon from '@mui/icons-material/Cancel';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import UserService from "./services/user.service";
 import Alerto, { AlertTypeEnum } from "../../components/Alerto";
-import { cursorTo } from "readline";
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import Render from "../../components/Render";
 
 
 const User: React.FC = () => {
@@ -18,14 +19,17 @@ const User: React.FC = () => {
     const [password, setPassword] = useState('')
     const [enumType, setEnumType] = useState<AlertTypeEnum>()
     const [alertMessage, setAlertMessage] = useState<string>('')
+    const [deleteForeverIconVisibility, setDeleteForeverIconVisibility] = useState<boolean>(false)
+    const [gridRowsSelected, setgridRowsSelected] = useState<string[]>([])
+
     const rStyle = {
         cursor: 'pointer'
     }
 
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'Id', width: 365 },
-        { field: 'name', headerName: 'Nome', width: 165 },
-        { field: 'email', headerName: 'Email', width: 330 }
+        { field: 'name', headerName: 'Nome', width: 165, editable: true },
+        { field: 'email', headerName: 'Email', width: 330, editable: true }
     ];
 
     const loadGrid = () => {
@@ -56,6 +60,11 @@ const User: React.FC = () => {
         clearAll()
         setEnumType(AlertTypeEnum.INFO)
         setAlertMessage('Registro inserido com sucesso!')
+    }
+
+    const gridRowClick = (data: string[]) => {
+        //setando visibilidade de alguns botoes de controle de açao(salvar, exlucir)
+        setDeleteForeverIconVisibility(data.length>0)
     }
 
     const clearAll = () => {
@@ -92,20 +101,29 @@ const User: React.FC = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <SaveIcon onClick={() => {
-                            saveUser()
-                        }} sx={{ fontSize: 40 }}></SaveIcon>
-                        <CancelIcon
-                            onClick={clearForm}
-                            sx={{ fontSize: 40 }}></CancelIcon>
+                        <Render rendered={!deleteForeverIconVisibility}>
+                            <SaveIcon onClick={() => {
+                                saveUser()
+                            }} sx={{ fontSize: 40 }}></SaveIcon>
+                            <RestartAltIcon
+                                onClick={clearForm}
+                                sx={{ fontSize: 40 }}></RestartAltIcon>
+                        </Render>
+                        <Render rendered={deleteForeverIconVisibility}>
+                            <DeleteForeverIcon
+                                sx={{ fontSize: 40 }}>
+                                Remover
+                            </DeleteForeverIcon>
+                        </Render>
+
                     </Col>
                 </Row>
             </BoxCenter>
-            <Row 
+            <Row
                 style={rStyle}
                 onClick={() => {
-                setEnumType(AlertTypeEnum.NONE)
-            }} >
+                    setEnumType(AlertTypeEnum.NONE)
+                }} >
                 <Alerto
                     message={alertMessage}
                     severity={enumType}
@@ -113,6 +131,7 @@ const User: React.FC = () => {
             </Row>
             <div>
                 <Grido
+                    onClick={gridRowClick}
                     _rows={rows}
                     _columns={columns}
                 >

@@ -99,7 +99,8 @@ const Home: React.FC = () => {
                     </FormControl>
                 </Col>
             </Row>
-            <Grido
+            <Grido 
+                onClick={()=>{}}
                 _rows={rows}
                 _columns={columns}
             >

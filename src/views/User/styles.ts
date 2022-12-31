@@ -59,7 +59,8 @@ export const Col = styled.div`
     float: left;
     width: 49%;    
 
-    > svg.MuiSvgIcon-root{
+    svg.MuiSvgIcon-root{
         cursor: pointer;
+        color:${props => props.theme.color.gray};        
     }
 `

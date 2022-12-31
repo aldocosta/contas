@@ -5,22 +5,26 @@ import { Container } from "./styles";
 
 type IGrido = {
     _rows: any[],
-    _columns : any[],
-    children: ReactNode
+    _columns: any[],
+    children: ReactNode,
+    onClick: (e: any) => void;
 }
 
-const Grido: React.FC<IGrido> = ({ _rows,_columns ,children }: IGrido) => {    
+const Grido: React.FC<IGrido> = ({ _rows, _columns, children, onClick }: IGrido) => {
 
     return (
 
         <Container className="grido">
             <div style={{ clear: 'both', height: 400, width: '100%', padding: '15px 0 0 0' }}>
-                <DataGrid
+                <DataGrid                    
+                    editMode="row"
                     rows={_rows}
                     columns={_columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
-                    checkboxSelection
+                    checkboxSelection       
+                    onSelectionModelChange={onClick}
+                    // onRowClick={onClick}
                 />
             </div>
         </Container >
