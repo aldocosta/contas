@@ -103,8 +103,7 @@ const Home: React.FC = () => {
                 onClick={()=>{}}
                 _rows={rows}
                 _columns={columns}
-            >
-            </Grido>
+            />            
 
         </Container >
     )

@@ -5,12 +5,11 @@ import { Container } from "./styles";
 
 type IGrido = {
     _rows: any[],
-    _columns: any[],
-    children: ReactNode,
+    _columns: any[],    
     onClick: (e: any) => void;
 }
 
-const Grido: React.FC<IGrido> = ({ _rows, _columns, children, onClick }: IGrido) => {
+const Grido: React.FC<IGrido> = ({ _rows, _columns, onClick }: IGrido) => {
 
     return (
 

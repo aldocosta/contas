@@ -15,18 +15,27 @@ const findAll = async () => {
     })
 }
 
-const saveUser = async (body:any) => {
+const saveUser = async (body: any) => {
 
     const uri = `${BaseUriconstants.BASEURI}/users/create`
 
-    return HttpService.post(uri,body,{
+    return HttpService.post(uri, body, {
+        'Content-Type': 'application/json'
+    })
+}
+
+const deleteUser = async (body: string) => {
+    const uri = `${BaseUriconstants.BASEURI}/users/byids`
+
+    return HttpService.del(uri, body, {
         'Content-Type': 'application/json'
     })
 }
 
 const UserService = {
     findAll,
-    saveUser
+    saveUser,
+    deleteUser
 }
 
 export default UserService

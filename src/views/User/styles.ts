@@ -29,6 +29,10 @@ export const Row = styled.div`
     > div.MuiFormControl-root{
         width: 100%;
     }
+
+    .MuiPaper-root {
+        width: 100%;
+    }
     
     > span {
         width : 100px;

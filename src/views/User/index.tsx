@@ -64,7 +64,8 @@ const User: React.FC = () => {
 
     const gridRowClick = (data: string[]) => {
         //setando visibilidade de alguns botoes de controle de açao(salvar, exlucir)
-        setDeleteForeverIconVisibility(data.length>0)
+        setDeleteForeverIconVisibility(data.length > 0)
+        setgridRowsSelected(data)
     }
 
     const clearAll = () => {
@@ -81,6 +82,17 @@ const User: React.FC = () => {
     useEffect(() => {
         loadGrid()
     }, [])
+
+
+    const deleteUsers = async () => {
+        const ret = await UserService.deleteUser(JSON.stringify(gridRowsSelected))
+        console.log(ret)
+
+        clearAll()
+        setEnumType(AlertTypeEnum.INFO)
+        setAlertMessage('Registros excluídos com sucesso!')
+    }
+
 
     return (
         <Container>
@@ -111,6 +123,9 @@ const User: React.FC = () => {
                         </Render>
                         <Render rendered={deleteForeverIconVisibility}>
                             <DeleteForeverIcon
+                                onClick={async () => {
+                                    await deleteUsers()
+                                }}
                                 sx={{ fontSize: 40 }}>
                                 Remover
                             </DeleteForeverIcon>
@@ -129,14 +144,15 @@ const User: React.FC = () => {
                     severity={enumType}
                 ></Alerto>
             </Row>
-            <div>
+
+            <Row>
                 <Grido
                     onClick={gridRowClick}
                     _rows={rows}
                     _columns={columns}
-                >
-                </Grido>
-            </div>
+                />
+
+            </Row>
         </Container>
     )
 }
