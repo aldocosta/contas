@@ -53,8 +53,6 @@ export const Row = styled(R)`
 `
 
 export const Col = styled(C)`
- 
-
  #sl,#slm {  
     color:${props => props.theme.color.info};
  }

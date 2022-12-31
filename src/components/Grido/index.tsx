@@ -13,7 +13,7 @@ const Grido: React.FC<IGrido> = ({ _rows,_columns ,children }: IGrido) => {
 
     return (
 
-        <Container>
+        <Container className="grido">
             <div style={{ clear: 'both', height: 400, width: '100%', padding: '15px 0 0 0' }}>
                 <DataGrid
                     rows={_rows}

@@ -11,8 +11,18 @@ const post = async <T>(uri: string, body: string, headers: {}): Promise<T> => {
     return response.json();
 }
 
+const get = async <T>(uri: string, headers: {}): Promise<T> => {
+    const response = await fetch(uri,
+        {
+            method: HttpMethods.GET,
+            headers: headers            
+        })
+    return response.json();
+}
+
 const HttpService = {
-    post
+    post,
+    get
 }
 
 export default HttpService

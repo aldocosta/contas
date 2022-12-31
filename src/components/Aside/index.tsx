@@ -11,6 +11,7 @@ const Aside: React.FC = () => {
             <Render rendered={logged}>
                 <MenuItemLink to='/' onClick={() => { setActualPageName('Merchant Register')}} >Merchant Register</MenuItemLink>
                 <MenuItemLink to='/about' onClick={() => { setActualPageName('About Page') }}>Client Register</MenuItemLink>
+                <MenuItemLink to='/caduser' onClick={() => { setActualPageName('User Register') }}>User Register</MenuItemLink>
                 <MenuItemLink to='/' onClick={(e) => {  signOut(); }}>Logout</MenuItemLink>
             </Render>
 
