@@ -1,12 +1,13 @@
 import { TextField } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
-import ButtonMUI from "../../components/Button-MUI";
 import Grido from "../../components/Grido";
 import { BoxCenter, Col, Container, Row } from "./styles";
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
 import UserService from "./services/user.service";
+import Alerto, { AlertTypeEnum } from "../../components/Alerto";
+import { cursorTo } from "readline";
 
 
 const User: React.FC = () => {
@@ -15,6 +16,11 @@ const User: React.FC = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [enumType, setEnumType] = useState<AlertTypeEnum>()
+    const [alertMessage, setAlertMessage] = useState<string>('')
+    const rStyle = {
+        cursor: 'pointer'
+    }
 
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'Id', width: 365 },
@@ -34,7 +40,6 @@ const User: React.FC = () => {
                     }
                 })
                 setRows(newData)
-                console.log(newData)
             })
             .catch((err) => {
                 console.log(err)
@@ -48,7 +53,20 @@ const User: React.FC = () => {
             password: password
         })
         const retorno = await UserService.saveUser(newUser)
+        clearAll()
+        setEnumType(AlertTypeEnum.INFO)
+        setAlertMessage('Registro inserido com sucesso!')
+    }
+
+    const clearAll = () => {
+        clearForm()
         loadGrid()
+    }
+
+    const clearForm = () => {
+        setName('')
+        setEmail('')
+        setPassword('')
     }
 
     useEffect(() => {
@@ -77,10 +95,22 @@ const User: React.FC = () => {
                         <SaveIcon onClick={() => {
                             saveUser()
                         }} sx={{ fontSize: 40 }}></SaveIcon>
-                        <CancelIcon sx={{ fontSize: 40 }}></CancelIcon>
+                        <CancelIcon
+                            onClick={clearForm}
+                            sx={{ fontSize: 40 }}></CancelIcon>
                     </Col>
                 </Row>
             </BoxCenter>
+            <Row 
+                style={rStyle}
+                onClick={() => {
+                setEnumType(AlertTypeEnum.NONE)
+            }} >
+                <Alerto
+                    message={alertMessage}
+                    severity={enumType}
+                ></Alerto>
+            </Row>
             <div>
                 <Grido
                     _rows={rows}
