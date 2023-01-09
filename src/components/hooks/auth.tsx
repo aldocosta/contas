@@ -7,9 +7,11 @@ interface IAuthContext {
     logged: boolean;
     userName: string;
     pageName: string;
+    loadingVisibility: boolean;
     signIn(email: string, password: string): void;
     signOut(): void;
     setActualPageName(pageNamed: string): void;
+    setLoadVisibilityGlobal(loadingVisibility: boolean): void;
 }
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext);
@@ -18,6 +20,7 @@ const AuthProvider: React.FC<any> = ({ children }) => {
 
     const [userName, setuserName] = useState<string>('');
     const [pageName, setPageName] = useState<string>('');
+    const [loadingVisibility, setLoadingVisibility] = useState<boolean>(false);
 
     const [logged, setLogged] = useState<boolean>(() => {
         setPageName(AuthConstants.PLATFORMVERSION)
@@ -26,11 +29,12 @@ const AuthProvider: React.FC<any> = ({ children }) => {
     });
 
 
-    const signIn = async (email: string, password: string) => {        
-        const logg = await LoginService.login(email, password)
+    const signIn = async (email: string, password: string) => {
+        const logg: any = await LoginService.login(email, password)
 
         if (logg.statusCode == undefined) {
-            StorageService.saveStorage(AuthConstants.MINHACARTEIRALOGGED, 'true');            
+            StorageService.saveStorage(AuthConstants.MINHACARTEIRALOGGED, 'true');
+            StorageService.saveStorage(AuthConstants.MINHACARTEIRALOGGEDTOKEN, JSON.stringify(logg));
             setLogged(true);
             setuserName(email)
             setPageName('Contas do Ano')
@@ -54,8 +58,22 @@ const AuthProvider: React.FC<any> = ({ children }) => {
         setPageName(AuthConstants.PLATFORMVERSION)
     }
 
+    const setLoadVisibilityGlobal = (visibility: boolean) => {
+        setLoadingVisibility(visibility)
+    }
+
     return (
-        <AuthContext.Provider value={{ logged, userName, pageName, signIn, signOut ,setActualPageName}}>
+        <AuthContext.Provider value={
+            {
+                logged,
+                userName,
+                pageName,
+                loadingVisibility,
+                signIn,
+                signOut,
+                setActualPageName,
+                setLoadVisibilityGlobal
+            }}>
             {children}
         </AuthContext.Provider>
     );

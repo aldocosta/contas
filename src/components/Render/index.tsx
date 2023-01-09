@@ -11,11 +11,11 @@ const Render: React.FC<IRender> = ({ rendered, children }: IRender) => {
 
     return (
 
-        <Container>
+        <>
             {
                 rendered ? children : ""
             }
-        </Container >
+        </ >
 
     )
 }

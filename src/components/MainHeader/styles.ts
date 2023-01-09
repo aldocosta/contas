@@ -14,6 +14,6 @@ export const Container = styled.div`
 `;
 
 export const AppBarC = styled(AppBar)`
-    background-color: ${props => props.theme.color.black} !important;    
+    background-color: ${props => props.theme.color.primary} !important;    
 `
 

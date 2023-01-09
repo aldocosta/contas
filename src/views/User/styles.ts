@@ -60,9 +60,7 @@ export const Row = styled.div`
 `
 
 export const Col = styled.div`
-    float: left;
-    width: 49%;    
-
+    display:inline-flex;    
     svg.MuiSvgIcon-root{
         cursor: pointer;
         color:${props => props.theme.color.gray};        
